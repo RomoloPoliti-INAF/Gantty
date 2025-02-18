@@ -1,10 +1,16 @@
+[project]
+name = "gantty"
+version = "1.0.0"
+description = "Gantt diagram generator"
+
 [tool.poetry]
 name = "gantty"
-version = "0.2.0"
+version = "1.0.0"
 description = "Gantt diagram generator"
 authors = ["Romolo Politi <romolo.politi@inaf.it>"]
-license = "GNU General Public License v3.0 or later"
+license = "GPL-3.0-or-later"
 readme = "README.md"
+repository= "https://github.com/RomoloPoliti-INAF/Gantty"
 
 [tool.poetry.dependencies]
 python = ">= 3.10 , <3.14"

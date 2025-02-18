@@ -9,7 +9,7 @@ from gantty.time_tools import string_to_timedelta, stopCal, day_length
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
-__version__ = '0.2.0'
+__version__ = '1.0.0'
 
 def buildCD(sessions):
     colors = ['#E64646', '#E69646', '#34D05C', '#34D0C3', '#3475D0']
