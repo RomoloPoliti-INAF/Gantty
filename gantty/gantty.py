@@ -26,7 +26,7 @@ def buildCD(sessions):
 def color(row, c_dict):
     return c_dict[row['Session']]
 
-def build(ctx:RichContext,inputFile:Path, display:bool)->pd.DataFrame:
+def build(ctx:RichContext,inputFile:Path, show:bool)->pd.DataFrame:
     df = pd.read_csv(inputFile)
     df.columns = [col.strip().title() for col in df.columns]
     df['Label'] = df['Label'].str.strip()
@@ -61,7 +61,7 @@ def build(ctx:RichContext,inputFile:Path, display:bool)->pd.DataFrame:
     sessions = df['Session'].unique()
     cdict = buildCD(sessions)
     df['color'] = df.apply(color, axis=1, c_dict=cdict)
-    if display:
+    if show:
         orDF = pd.read_csv(inputFile)
         from rich.console import Console
         console=Console()
@@ -73,8 +73,8 @@ def build(ctx:RichContext,inputFile:Path, display:bool)->pd.DataFrame:
     return df
 
 
-def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputFile: str = None, show: bool = False, no_sessions:bool=False):
-    if show:
+def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputFile: str = None, display: bool = False, no_sessions:bool=False):
+    if display:
         dpi = 100
     else:
         dpi = 300
@@ -151,7 +151,7 @@ def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputF
     ax1.spines['bottom'].set_visible(False)
     ax1.set_xticks([])
     ax1.set_yticks([])
-    if show:
+    if display:
         plt.show()
     else:
         plt.savefig(outputFile, facecolor='#36454F')
@@ -164,14 +164,14 @@ def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputF
               help='The PNG output file. The default is gantt.png', default=Path('./gantt.png').expanduser())
 @click.option('-t', '--title', metavar='TITLE', help=' Title of the plot', default='Gantt Plot')
 @click.option('-x', '--xticks', metavar='NUM', type=int, help='Set the x Thicks frequency to NUM. The default is every month (1)', default=1)
-@click.option('-s', '--show', is_flag=True, help='Display the plot. No output will be saved', default=False)
-@click.option('-d', '--display', is_flag=True, help='Display the input data and the computed one and exit', default=False)
+@click.option('-s', '--show', is_flag=True, help='Print the input data and the computed one and exit', default=False)
+@click.option('-d', '--display', is_flag=True, help='Display the plot. No output will be saved', default=False)
 @click.option('-n', '--no-sessions', is_flag=True, help='Do not use session colors', default=False)
 @click.pass_context
 def main(ctx,input: Path, output: Path, title: str, xticks: int, show: bool, display: bool,no_sessions:bool):
-    df = build(ctx,input, display)
+    df = build(ctx,input, show)
     visualize(df, title, outputFile=output,
-              show=show, step=xticks,no_sessions=no_sessions)
+              display=display, step=xticks,no_sessions=no_sessions)
 
 if __name__ == "__main__":
     main()

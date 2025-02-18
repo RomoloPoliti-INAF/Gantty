@@ -3,7 +3,7 @@ name = "gantty"
 version = "0.2.0"
 description = "Gantt diagram generator"
 authors = ["Romolo Politi <romolo.politi@inaf.it>"]
-license = "GNU GPL ver. 3"
+license = "GNU General Public License v3.0 or later"
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -19,3 +19,6 @@ pytest = "^8.3.4"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+gantty = "gantty.gantty:main"
