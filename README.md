@@ -25,6 +25,7 @@ Option| Description
 **--show**, **-s**            | Print the input data and the computed one and exit
 **--display**, **-d**,        | Show the plot on an interactive window. No output will be saved
 **--no-sessions**, **-n**     | Do not change the background for different session.
+**--version**                 | Print the version of the software
 **-h**, **--help**            | Show this help message and exit
 
 

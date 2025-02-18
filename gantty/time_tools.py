@@ -1,3 +1,4 @@
+# Copyright (C) 2025  Romolo Politi
 import re
 from datetime import timedelta, datetime
 

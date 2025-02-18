@@ -1,3 +1,4 @@
+# Copyright (C) 2025  Romolo Politi
 from datetime import datetime
 import rich_click as click
 from pathlib import Path
@@ -8,6 +9,7 @@ from gantty.time_tools import string_to_timedelta, stopCal, day_length
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
+__version__ = '0.2.0'
 
 def buildCD(sessions):
     colors = ['#E64646', '#E69646', '#34D05C', '#34D0C3', '#3475D0']
@@ -155,6 +157,16 @@ def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputF
         plt.show()
     else:
         plt.savefig(outputFile, facecolor='#36454F')
+        
+
+def show_version(ctx, param, value):
+    from rich.console import Console
+    console = Console()
+    if not value or ctx.resilient_parsing:
+        return
+    console.print(
+        f"[bold]gantty[/] Version [cyan bold]{__version__}[/] \nCopyright (C) 2025  Romolo Politi")
+    ctx.exit()
 
 
 @click.command()
@@ -167,6 +179,7 @@ def visualize(df:pd.DataFrame, title: str = 'Gantt PLOT', step: int = 1, outputF
 @click.option('-s', '--show', is_flag=True, help='Print the input data and the computed one and exit', default=False)
 @click.option('-d', '--display', is_flag=True, help='Display the plot. No output will be saved', default=False)
 @click.option('-n', '--no-sessions', is_flag=True, help='Do not use session colors', default=False)
+@click.option('--version', is_flag=True, help='Print the version and exit', callback=show_version, is_eager=True)
 @click.pass_context
 def main(ctx,input: Path, output: Path, title: str, xticks: int, show: bool, display: bool,no_sessions:bool):
     df = build(ctx,input, show)
